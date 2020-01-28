@@ -37,8 +37,8 @@ const CurrencyList = ({ currencies }) => {
                   ${currency.results.minimum} || ${currency.results.maximum}
                 </h6>
                 <h6>
-                  {currency.results.buyingTime} ||
-                  {currency.results.sellingTime}
+                  {currency.results.time} ||
+                  {currency.results.tt}
                 </h6>
                 <h6>
                   Profit:$
