@@ -19,9 +19,10 @@ const CurrencyList = ({ currencies }) => {
   return (
     <>
       <div style={{}}>
+        Search by currency name:
         <Input
           type={"text"}
-          placeholder={"Search by Currency Name...."}
+          placeholder={"Search...."}
           onChange={handleChange}
         />
       </div>
