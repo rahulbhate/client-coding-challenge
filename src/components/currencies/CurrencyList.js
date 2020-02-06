@@ -39,11 +39,11 @@ const CurrencyList = ({ currencies }) => {
                   {currency.maximumSellingPrice}
                 </h6>
                 <h6>
-                  {moment(currency.buyingTime, ["HH:mm A P"]).format("HH:mm A")}
-                  ||
                   {moment(currency.sellingTime, ["HH:mm A P"]).format(
                     "HH:mm A"
                   )}
+                  ||
+                  {moment(currency.buyingTime, ["HH:mm A P"]).format("HH:mm A")}
                 </h6>
                 <h6>
                   Profit:$
