@@ -35,18 +35,19 @@ const CurrencyList = ({ currencies }) => {
                 <h6>{currency.currency}</h6>
                 <h6>Buy || Sell</h6>
                 <h6>
-                  ${currency.results.minimum} || ${currency.results.maximum}
+                  ${currency.minimumBuyingPrice} || $
+                  {currency.maximumSellingPrice}
                 </h6>
                 <h6>
-                  {moment(currency.results.time, ["HH:mm A P"]).format(
+                  {moment(currency.buyingTime, ["HH:mm A P"]).format("HH:mm A")}
+                  ||
+                  {moment(currency.sellingTime, ["HH:mm A P"]).format(
                     "HH:mm A"
                   )}
-                  ||
-                  {moment(currency.results.tt, ["HH:mm A P"]).format("HH:mm A")}
                 </h6>
                 <h6>
                   Profit:$
-                  {currency.results.profit.toFixed(2)}
+                  {currency.profit.toFixed(2)}
                 </h6>
               </Card>
             </div>

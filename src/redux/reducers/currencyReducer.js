@@ -8,45 +8,45 @@ export default function currencyReducer(
     case "LOAD_CURRENCY_SUCCESS":
       return action.currencies.map(element => {
         var results = element.quotes.reduce(getQuotes, {});
-        return { ...element, results };
+        return { ...state, ...element, ...results };
       });
     default:
       return state;
   }
 }
 
-var getQuotes = function(accumulator, currentElement, currentIndex, array) {
-  const maximum = accumulator.maximum
-    ? accumulator.maximum < currentElement.price && currentElement.time > "1200"
-      ? currentElement.price
-      : accumulator.maximum
-    : currentElement.price;
+const getQuotes = function(all, item) {
+  const maximumSellingPrice = all.maximumSellingPrice
+    ? all.maximumSellingPrice < item.price && item.time > "1200"
+      ? item.price
+      : all.maximumSellingPrice
+    : item.price;
 
-  const time = accumulator.time
-    ? accumulator.time === maximum
-      ? currentElement.time
-      : accumulator.time
-    : currentElement.time;
+  const minimumBuyingPrice = all.minimumBuyingPrice
+    ? all.minimumBuyingPrice > item.price && item.time < "1200"
+      ? item.price
+      : all.minimumBuyingPrice
+    : item.price;
 
-  const minimum = accumulator.minimum
-    ? accumulator.minimum > currentElement.price && currentElement.time < "1200"
-      ? currentElement.price
-      : accumulator.minimum
-    : currentElement.price;
+  const buyingTime = all.buyingTime
+    ? item.price === maximumSellingPrice
+      ? item.time
+      : all.buyingTime
+    : item.time;
 
-  const tt = accumulator.times
-    ? accumulator.times === minimum
-      ? currentElement.time
-      : accumulator.times
-    : currentElement.time;
+  const sellingTime = all.sellingTime
+    ? item.price === minimumBuyingPrice
+      ? item.time
+      : all.sellingTime
+    : item.time;
 
-  const profit = parseFloat(maximum) - parseFloat(minimum);
-
+  const profit =
+    parseFloat(maximumSellingPrice) - parseFloat(minimumBuyingPrice);
   return {
-    maximum,
-    minimum,
-    profit,
-    time,
-    tt
+    maximumSellingPrice,
+    minimumBuyingPrice,
+    buyingTime,
+    sellingTime,
+    profit
   };
 };
